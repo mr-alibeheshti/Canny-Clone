@@ -1,0 +1,27 @@
+{
+	"files": {
+		"ignore": ["./test", "./node_modules"]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"suspicious": {
+				"noDebugger": "off",
+				"noConsoleLog": "info"
+			},
+			"correctness": {
+				"noUnusedVariables": {
+					"level": "warn",
+					"fix": "none"
+				}
+			},
+			"style": {
+				"useTemplate": {
+					"level": "warn",
+					"fix": "safe"
+				}
+			}
+		}
+	}
+}

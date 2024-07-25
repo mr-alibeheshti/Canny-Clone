@@ -36,8 +36,7 @@ VoteSchema.statics.calcNum = async function (feedbackId) {
 		}
 
 		const updatedFeedback = await Feedback.findById(feedbackId);
-	} catch (error) {
-	}
+	} catch (error) {}
 };
 
 VoteSchema.index({ user: 1, feedback: 1 });
