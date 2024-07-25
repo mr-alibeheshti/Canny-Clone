@@ -1,11 +1,14 @@
 const multer = require("multer");
 const sharp = require("sharp");
-
+const fs = require("fs")
 const storage = multer.memoryStorage();
 
 const upload = multer({ storage });
 
 const resizeRequestImages = async (req, res, next) => {
+	if (!fs.existsSync('uploads')) {
+		fs.mkdirSync('uploads');
+	}
 	if (!req.files || !req.files.images) return next();
 
 	req.body.images = [];

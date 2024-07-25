@@ -1,14 +1,7 @@
 const feedback = require("../../models/FeedbackModel");
 const User = require("../../models/UserModel");
 const AppError = require("../../utils/AppError");
-const {
-	uploadRequestImages,
-	resizeRequestImages,
-} = require("../../utils/multerConfig");
 const { feedbackSchema } = require("../../utils/validation");
-
-exports.uploadRequestImages = uploadRequestImages;
-exports.resizeRequestImages = resizeRequestImages;
 
 exports.newFeedback = async (req, res, next) => {
 	const verifyToken = req.headers.authorization?.split(" ")[1];
@@ -72,7 +65,7 @@ exports.getOneFeedback = async (req, res, next) => {
 		.select("title body images votes")
 		.populate({
 			path: "comments",
-			select: "title body user createdAt",
+			select: "title body user",
 		});
 
 	if (!singleFeedback) {

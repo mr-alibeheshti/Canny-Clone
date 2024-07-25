@@ -52,14 +52,6 @@ userSchema.methods.createVerifyToken = function () {
 	return token;
 };
 
-userSchema.methods.changedPasswordAfter = function (jwtiat) {
-	if (this.changedPasswordAt) {
-		const passwordChanged = Math.floor(this.changedPasswordAt.getTime() / 1000);
-		return passwordChanged > jwtiat;
-	}
-	return false;
-};
-
 userSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
 		this.password = await bcrypt.hash(this.password, 12);
@@ -76,8 +68,8 @@ userSchema.pre(/^find/, function (next) {
 	next();
 });
 
-userSchema.methods.correctPassword = async function (candidatePassword) {
-	return await bcrypt.compare(candidatePassword, this.password);
+userSchema.methods.correctPassword = async function (InputPassword) {
+	return await bcrypt.compare(InputPassword, this.password);
 };
 
 const User = mongoose.model("User", userSchema);

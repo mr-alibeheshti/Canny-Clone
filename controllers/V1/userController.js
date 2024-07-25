@@ -115,6 +115,10 @@ exports.PasswordReset = async (req, res, next) => {
 
 // Forget Password
 exports.forgetPassword = async (req, res, next) => {
+	const { error } = forgetPasswordSchema.validate(req.body);
+	if (error) {
+		return next(new AppError(error.details[0].message, 400));
+	}
 	const { email } = req.body;
 
 	if (!email) {
@@ -163,7 +167,7 @@ exports.deleteAccount = async (req, res, next) => {
 	if (
 		!user ||
 		verifyToken !== user.verifyToken ||
-		Date.now() > user.verifyTokenExpires
+		Date.now() > user.verifyTokenExpireschangedPasswordAfter
 	) {
 		return next(new AppError("Token is invalid or has expired.", 400));
 	}

@@ -16,13 +16,10 @@ function configEmailService() {
 	const transporter = nodemailer.createTransport({
 		host: MAIL_HOST,
 		port: MAIL_PORT,
-		secure: false, // Use true for port 465, false for other ports
+		tls: true,
 		auth: {
 			user: MAIL_USER,
 			pass: MAIL_PASSWORD,
-		},
-		tls: {
-			rejectUnauthorized: false,
 		},
 	});
 
